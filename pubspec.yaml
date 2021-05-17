@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -24,10 +24,61 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+
+  # GetX
+  get: ^4.1.4
+
+  # 日期
+  intl: ^0.17.0
+
+  # 屏幕适配
+  flutter_screenutil: ^5.0.0+2
+
+  # 下拉刷新
+  pull_to_refresh: ^2.0.0
+
+  # 骨架屏
+  g_skeleton: ^0.1.0
+
+  # http
+  dio: ^4.0.0
+  dio_cookie_manager: ^2.0.0
+  cookie_jar: ^3.0.1
+
+  # 缓存
+  shared_preferences: ^2.0.5
+  cached_network_image: ^3.0.0
+  flutter_cache_manager: ^3.0.2
+
+  # 加密安全 SHA
+  crypto: ^3.0.1
+
+  # webView
+  webview_flutter: ^2.0.4
+
+  # loading
+  loading_animations: ^2.2.0
+
+  # share
+  share: ^2.0.1
+
+  # 设备信息
+  device_info: ^2.0.0
+
+  # 包信息
+  package_info: ^2.0.0
+
+  # 路径查询
+  path_provider: ^2.0.1
+
+  # permission 权限
+  permission_handler: ^7.1.0
+
+  # 错误收集
+  sentry: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -38,23 +89,18 @@ dev_dependencies:
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
-
   # For details regarding adding assets from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
-
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
