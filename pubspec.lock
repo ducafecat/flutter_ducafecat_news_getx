@@ -163,13 +163,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  g_skeleton:
+  fluttertoast:
     dependency: "direct main"
     description:
-      name: g_skeleton
+      name: fluttertoast
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.1.0"
+    version: "8.0.7"
   get:
     dependency: "direct main"
     description:

@@ -112,7 +112,7 @@ class WelcomePage extends GetView<WelcomeController> {
           )),
         ),
         child: Text("Get started"),
-        onPressed: () => {},
+        onPressed: controller.handleNavSignIn,
       ),
     );
   }

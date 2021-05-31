@@ -1,76 +1,147 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
+import 'package:flutter_ducafecat_news_getx/common/widget/widget.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/controller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 class SignInPage extends GetView<SignInController> {
-  /// 页头标题
-  Widget _buildPageHeadTitle() {
+  // logo
+  Widget _buildLogo() {
     return Container(
-      margin: EdgeInsets.only(top: (60 + 44.0).h), // 顶部系统栏 44px
-      child: Text(
-        "Features",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: AppColors.primaryText,
-          fontFamily: "Montserrat",
-          fontWeight: FontWeight.w600,
-          fontSize: 24.sp,
-          height: 1,
-        ),
-      ),
-    );
-  }
-
-  /// 页头说明
-  Widget _buildPageHeaderDetail() {
-    return Container(
-      width: 242.w,
-      height: 70.h,
-      margin: EdgeInsets.only(top: 14.h),
-      child: Text(
-        "The best of news channels all in one place. Trusted sources and personalized news for you.",
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: AppColors.primaryText,
-          fontFamily: "Avenir",
-          fontWeight: FontWeight.normal,
-          fontSize: 16.sp,
-          height: 1.3,
-        ),
-      ),
-    );
-  }
-
-  /// 特性说明
-  /// 宽度 80 + 20 + 195 = 295
-  Widget _buildFeatureItem(String imageName, String intro, double marginTop) {
-    return Container(
-      width: 295.w,
-      height: 80.h,
-      margin: EdgeInsets.only(top: marginTop.h),
-      child: Row(
+      width: 110.w,
+      margin: EdgeInsets.only(top: (40 + 44.0).h), // 顶部系统栏 44px
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            width: 80.w,
-            height: 80.w,
-            child: Image.asset(
-              "assets/images/$imageName.png",
-              fit: BoxFit.none,
+            height: 76.w,
+            width: 76.w,
+            margin: EdgeInsets.symmetric(horizontal: 15.w),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  right: 0,
+                  child: Container(
+                    height: 76.h,
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryBackground,
+                      boxShadow: [
+                        Shadows.primaryShadow,
+                      ],
+                      borderRadius: BorderRadius.all(
+                          Radius.circular((76 * 0.5).w)), // 父容器的50%
+                    ),
+                    child: Container(),
+                  ),
+                ),
+                Positioned(
+                  top: 13.w,
+                  child: Image.asset(
+                    "assets/images/logo.png",
+                    fit: BoxFit.none,
+                  ),
+                ),
+              ],
             ),
           ),
-          Spacer(),
           Container(
-            width: 195.w,
+            margin: EdgeInsets.only(top: 15.h),
             child: Text(
-              intro,
-              textAlign: TextAlign.left,
+              "SECTOR",
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.primaryText,
-                fontFamily: "Avenir",
-                fontWeight: FontWeight.normal,
-                fontSize: 16.sp,
+                fontFamily: "Montserrat",
+                fontWeight: FontWeight.w600,
+                fontSize: 24.sp,
+                height: 1,
+              ),
+            ),
+          ),
+          Text(
+            "news",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.primaryText,
+              fontFamily: "Avenir",
+              fontWeight: FontWeight.w400,
+              fontSize: 16.sp,
+              height: 1,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 登录表单
+  Widget _buildInputForm() {
+    return Container(
+      width: 295.w,
+      // height: 204,
+      margin: EdgeInsets.only(top: 49.h),
+      child: Column(
+        children: [
+          // email input
+          inputTextEdit(
+            controller: controller.emailController,
+            keyboardType: TextInputType.emailAddress,
+            hintText: "Email",
+            marginTop: 0,
+            // autofocus: true,
+          ),
+          // password input
+          inputTextEdit(
+            controller: controller.passController,
+            keyboardType: TextInputType.visiblePassword,
+            hintText: "Password",
+            isPassword: true,
+          ),
+
+          // 注册、登录 横向布局
+          Container(
+            height: 44.h,
+            margin: EdgeInsets.only(top: 15.h),
+            child: Row(
+              children: [
+                // 注册
+                btnFlatButtonWidget(
+                  onPressed: controller.handleNavSignUp,
+                  gbColor: AppColors.thirdElement,
+                  title: "Sign up",
+                ),
+                Spacer(),
+                // 登录
+                btnFlatButtonWidget(
+                  onPressed: controller.handleSignIn,
+                  gbColor: AppColors.primaryElement,
+                  title: "Sign in",
+                ),
+              ],
+            ),
+          ),
+          // Spacer(),
+
+          // Fogot password
+          Container(
+            height: 23.h,
+            margin: EdgeInsets.only(top: 20.h),
+            child: TextButton(
+              onPressed: () => {},
+              child: Text(
+                "Fogot password?",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: AppColors.secondaryElementText,
+                  fontFamily: "Avenir",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 16.sp,
+                  height: 1, // 设置下行高，否则字体下沉
+                ),
               ),
             ),
           ),
@@ -79,40 +150,66 @@ class SignInPage extends GetView<SignInController> {
     );
   }
 
-  /// 开始按钮
-  Widget _buildStartButton(BuildContext context) {
+  // 第三方登录
+  Widget _buildThirdPartyLogin() {
     return Container(
       width: 295.w,
-      height: 44.h,
-      margin: EdgeInsets.only(bottom: 20.h),
-      child: TextButton(
-        style: ButtonStyle(
-          textStyle: MaterialStateProperty.all(TextStyle(
-            fontSize: 16.sp,
-          )),
-          foregroundColor: MaterialStateProperty.resolveWith(
-            (states) {
-              if (states.contains(MaterialState.focused) &&
-                  !states.contains(MaterialState.pressed)) {
-                return Colors.blue;
-              } else if (states.contains(MaterialState.pressed)) {
-                return Colors.deepPurple;
-              }
-              return AppColors.primaryElementText;
-            },
+      margin: EdgeInsets.only(bottom: 40.h),
+      child: Column(
+        children: <Widget>[
+          // title
+          Text(
+            "Or sign in with social networks",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: AppColors.primaryText,
+              fontFamily: "Avenir",
+              fontWeight: FontWeight.w400,
+              fontSize: 16.sp,
+            ),
           ),
-          backgroundColor: MaterialStateProperty.resolveWith((states) {
-            if (states.contains(MaterialState.pressed)) {
-              return Colors.blue[200];
-            }
-            return AppColors.primaryElement;
-          }),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-            borderRadius: Radii.k6pxRadius,
-          )),
-        ),
-        child: Text("Get started"),
-        onPressed: () => {},
+          // 按钮
+          Padding(
+            padding: EdgeInsets.only(top: 20.h),
+            child: Row(
+              children: <Widget>[
+                btnFlatButtonBorderOnlyWidget(
+                  onPressed: () {},
+                  width: 88,
+                  iconFileName: "twitter",
+                ),
+                Spacer(),
+                btnFlatButtonBorderOnlyWidget(
+                  onPressed: () {},
+                  width: 88,
+                  iconFileName: "google",
+                ),
+                Spacer(),
+                btnFlatButtonBorderOnlyWidget(
+                  onPressed: () {},
+                  width: 88,
+                  iconFileName: "facebook",
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // 注册按钮
+  Widget _buildSignupButton() {
+    return Container(
+      margin: EdgeInsets.only(bottom: 20.h),
+      child: btnFlatButtonWidget(
+        onPressed: controller.handleNavSignUp,
+        width: 294,
+        gbColor: AppColors.secondaryElement,
+        fontColor: AppColors.primaryText,
+        title: "Sign up",
+        fontWeight: FontWeight.w500,
+        fontSize: 16,
       ),
     );
   }
@@ -120,28 +217,15 @@ class SignInPage extends GetView<SignInController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: <Widget>[
-            _buildPageHeadTitle(),
-            _buildPageHeaderDetail(),
-            _buildFeatureItem(
-              "feature-1",
-              "Compelling photography and typography provide a beautiful reading",
-              86,
-            ),
-            _buildFeatureItem(
-              "feature-2",
-              "Sector news never shares your personal data with advertisers or publishers",
-              40,
-            ),
-            _buildFeatureItem(
-              "feature-3",
-              "You can get Premium to unlock hundreds of publications",
-              40,
-            ),
+            _buildLogo(),
+            _buildInputForm(),
             Spacer(),
-            _buildStartButton(context),
+            _buildThirdPartyLogin(),
+            _buildSignupButton(),
           ],
         ),
       ),

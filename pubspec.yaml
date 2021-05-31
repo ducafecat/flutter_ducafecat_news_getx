@@ -40,8 +40,8 @@ dependencies:
   # 下拉刷新
   pull_to_refresh: ^2.0.0
 
-  # 骨架屏
-  g_skeleton: ^0.1.0
+  # toast
+  fluttertoast: ^8.0.7
 
   # http
   dio: ^4.0.0

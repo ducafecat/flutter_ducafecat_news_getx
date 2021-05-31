@@ -1,4 +1,4 @@
-library entitys;
+library entity;
 
 export 'user.dart';
 export 'news.dart';

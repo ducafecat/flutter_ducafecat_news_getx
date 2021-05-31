@@ -163,7 +163,7 @@ class HttpUtil {
   }
 
   /// 读取本地配置
-  Map<String, dynamic> getAuthorizationHeader() {
+  Map<String, dynamic>? getAuthorizationHeader() {
     var headers;
     String? accessToken = Global.profile.accessToken;
     if (accessToken != null) {
@@ -201,8 +201,10 @@ class HttpUtil {
       "cacheKey": cacheKey,
       "cacheDisk": cacheDisk,
     });
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
 
     var response = await dio.get(
       path,
@@ -221,8 +223,11 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    requestOptions.headers = requestOptions.headers ?? Map();
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
     var response = await dio.post(
       path,
       data: data,
@@ -241,8 +246,11 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    requestOptions.headers = requestOptions.headers ?? Map();
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
     var response = await dio.put(
       path,
       data: data,
@@ -261,8 +269,11 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    requestOptions.headers = requestOptions.headers ?? Map();
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
     var response = await dio.patch(
       path,
       data: data,
@@ -281,8 +292,11 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    requestOptions.headers = requestOptions.headers ?? Map();
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
     var response = await dio.delete(
       path,
       data: data,
@@ -301,8 +315,11 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    requestOptions.headers = requestOptions.headers ?? Map();
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
     var response = await dio.post(
       path,
       data: FormData.fromMap(data),
@@ -322,8 +339,11 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    Map<String, dynamic> _authorization = getAuthorizationHeader();
-    requestOptions.headers!.addAll(_authorization);
+    requestOptions.headers = requestOptions.headers ?? Map();
+    Map<String, dynamic>? authorization = getAuthorizationHeader();
+    if (authorization != null) {
+      requestOptions.headers!.addAll(authorization);
+    }
     requestOptions.headers!.addAll({
       Headers.contentLengthHeader: dataLength.toString(),
     });

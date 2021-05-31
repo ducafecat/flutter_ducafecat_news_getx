@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_ducafecat_news_getx/common/api/api.dart';
+import 'package:flutter_ducafecat_news_getx/common/entity/entity.dart';
+import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
+import 'package:flutter_ducafecat_news_getx/global.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/state.dart';
 import 'package:get/get.dart';
 
@@ -30,16 +34,13 @@ class SignInController extends GetxController {
     // }
 
     UserLoginRequestEntity params = UserLoginRequestEntity(
-      email: _emailController.value.text,
-      password: duSHA256(_passController.value.text),
+      email: emailController.value.text,
+      password: duSHA256(passController.value.text),
     );
 
     UserLoginResponseEntity userProfile = await UserAPI.login(
-      context: context,
       params: params,
     );
     Global.saveProfile(userProfile);
-
-    ExtendedNavigator.rootNavigator.pushNamed(Routes.applicationPageRoute);
   }
 }
