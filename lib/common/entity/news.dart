@@ -1,3 +1,25 @@
+/// 新闻分页 request
+class NewsPageListRequestEntity {
+  String? categoryCode;
+  String? channelCode;
+  String? tag;
+  String? keyword;
+
+  NewsPageListRequestEntity({
+    this.categoryCode,
+    this.channelCode,
+    this.tag,
+    this.keyword,
+  });
+
+  Map<String, dynamic> toJson() => {
+        "categoryCode": categoryCode,
+        "channelCode": channelCode,
+        "tag": tag,
+        "keyword": keyword,
+      };
+}
+
 /// 新闻分页 response
 class NewsPageListResponseEntity {
   int? counts;
@@ -20,8 +42,10 @@ class NewsPageListResponseEntity {
         pagesize: json["pagesize"],
         pages: json["pages"],
         page: json["page"],
-        items:
-            List<NewsItem>.from(json["items"].map((x) => NewsItem.fromJson(x))),
+        items: json["items"] == null
+            ? null
+            : List<NewsItem>.from(
+                json["items"].map((x) => NewsItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -29,29 +53,29 @@ class NewsPageListResponseEntity {
         "pagesize": pagesize,
         "pages": pages,
         "page": page,
-        "items": items != null
-            ? List<dynamic>.from(items!.map((x) => x.toJson()))
-            : [],
+        "items": items == null
+            ? null
+            : List<dynamic>.from(items!.map((x) => x.toJson())),
       };
 }
 
 class NewsItem {
-  String id;
-  String title;
-  String category;
-  String thumbnail;
-  String author;
-  DateTime addtime;
-  String url;
+  String? id;
+  String? title;
+  String? category;
+  String? thumbnail;
+  String? author;
+  DateTime? addtime;
+  String? url;
 
   NewsItem({
-    required this.id,
-    required this.title,
-    required this.category,
-    required this.thumbnail,
-    required this.author,
-    required this.addtime,
-    required this.url,
+    this.id,
+    this.title,
+    this.category,
+    this.thumbnail,
+    this.author,
+    this.addtime,
+    this.url,
   });
 
   factory NewsItem.fromJson(Map<String, dynamic> json) => NewsItem(
@@ -70,23 +94,23 @@ class NewsItem {
         "category": category,
         "thumbnail": thumbnail,
         "author": author,
-        "addtime": addtime.toIso8601String(),
+        "addtime": addtime?.toIso8601String(),
         "url": url,
       };
 }
 
 /// 新闻推荐 request
 class NewsRecommendRequestEntity {
-  String categoryCode;
-  String channelCode;
-  String tag;
-  String keyword;
+  String? categoryCode;
+  String? channelCode;
+  String? tag;
+  String? keyword;
 
   NewsRecommendRequestEntity({
-    required this.categoryCode,
-    required this.channelCode,
-    required this.tag,
-    required this.keyword,
+    this.categoryCode,
+    this.channelCode,
+    this.tag,
+    this.keyword,
   });
 
   Map<String, dynamic> toJson() => {
