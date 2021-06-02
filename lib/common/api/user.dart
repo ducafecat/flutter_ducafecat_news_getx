@@ -9,7 +9,7 @@ class UserAPI {
   }) async {
     var response = await HttpUtil().post(
       '/user/login',
-      queryParameters: params?.toJson(),
+      data: params?.toJson(),
     );
     return UserLoginResponseEntity.fromJson(response);
   }

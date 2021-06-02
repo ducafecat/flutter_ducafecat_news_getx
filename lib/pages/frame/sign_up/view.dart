@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 
 import 'index.dart';
 
-class SignInPage extends GetView<SignInController> {
+class SignUpPage extends GetView<SignUpController> {
   // logo
   Widget _buildLogo() {
     return Container(
@@ -118,7 +118,7 @@ class SignInPage extends GetView<SignInController> {
                 Spacer(),
                 // 登录
                 btnFlatButtonWidget(
-                  onPressed: controller.handleSignIn,
+                  onPressed: controller.handleSignUp,
                   gbColor: AppColors.primaryElement,
                   title: "Sign in",
                 ),

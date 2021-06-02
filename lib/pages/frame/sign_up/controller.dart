@@ -7,10 +7,10 @@ import 'package:get/get.dart';
 
 import 'index.dart';
 
-class SignInController extends GetxController {
-  final state = SignInState();
+class SignUpController extends GetxController {
+  final state = SignUpState();
 
-  SignInController();
+  SignUpController();
 
   // email的控制器
   final TextEditingController emailController = TextEditingController();
@@ -18,13 +18,13 @@ class SignInController extends GetxController {
   final TextEditingController passController = TextEditingController();
 
   // final MyRepository repository;
-  // SignInController({@required this.repository}) : assert(repository != null);
+  // SignUpController({@required this.repository}) : assert(repository != null);
 
   // 跳转 注册界面
   handleNavSignUp() {}
 
   // 执行登录操作
-  handleSignIn() async {
+  handleSignUp() async {
     // if (!duIsEmail(_emailController.value.text)) {
     //   toastInfo(msg: '请正确输入邮件');
     //   return;

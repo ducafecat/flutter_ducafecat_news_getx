@@ -1,7 +1,5 @@
-import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/bindings.dart';
-import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/view.dart';
-import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/bindings.dart';
-import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/view.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/index.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/index.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
