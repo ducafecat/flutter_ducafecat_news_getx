@@ -21,7 +21,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.SIGN_UP,
-      page: () => SignInPage(),
+      page: () => SignUpPage(),
       binding: SignUpBinding(),
     ),
   ];

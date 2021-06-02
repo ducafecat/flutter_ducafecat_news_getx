@@ -27,7 +27,7 @@ class SignInPage extends GetView<SignInController> {
                   top: 0,
                   right: 0,
                   child: Container(
-                    height: 76.h,
+                    height: 76.w,
                     decoration: BoxDecoration(
                       color: AppColors.primaryBackground,
                       boxShadow: [
@@ -132,7 +132,7 @@ class SignInPage extends GetView<SignInController> {
             height: 23.h,
             margin: EdgeInsets.only(top: 20.h),
             child: TextButton(
-              onPressed: () => {},
+              onPressed: controller.handleFogotPassword,
               child: Text(
                 "Fogot password?",
                 textAlign: TextAlign.center,

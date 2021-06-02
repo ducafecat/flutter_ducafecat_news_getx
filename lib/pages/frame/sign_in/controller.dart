@@ -3,6 +3,7 @@ import 'package:flutter_ducafecat_news_getx/common/apis/apis.dart';
 import 'package:flutter_ducafecat_news_getx/common/entities/entities.dart';
 import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
 import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
+import 'package:flutter_ducafecat_news_getx/common/widgets/widgets.dart';
 import 'package:flutter_ducafecat_news_getx/global.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +23,14 @@ class SignInController extends GetxController {
   // SignInController({@required this.repository}) : assert(repository != null);
 
   // 跳转 注册界面
-  handleNavSignUp() {}
+  handleNavSignUp() {
+    Get.toNamed(AppRoutes.SIGN_UP);
+  }
+
+  // 忘记密码
+  handleFogotPassword() {
+    toastInfo(msg: '忘记密码');
+  }
 
   // 执行登录操作
   handleSignIn() async {
@@ -44,8 +52,6 @@ class SignInController extends GetxController {
       params: params,
     );
     Global.saveProfile(userProfile);
-
-    Get.offAndToNamed(AppRoutes.SIGN_UP);
   }
 
   @override

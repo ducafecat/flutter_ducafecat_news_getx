@@ -69,10 +69,10 @@ class SignUpPage extends GetView<SignUpController> {
 
           // Fogot password
           Container(
-            height: 22.h,
+            height: 23.h,
             margin: EdgeInsets.only(top: 20.h),
             child: TextButton(
-              onPressed: controller.handleSignUp,
+              onPressed: controller.handleFogotPassword,
               child: Text(
                 "Fogot password?",
                 textAlign: TextAlign.center,
@@ -173,9 +173,7 @@ class SignUpPage extends GetView<SignUpController> {
               Icons.info_outline,
               color: AppColors.primaryText,
             ),
-            onPressed: () {
-              toastInfo(msg: '这是注册界面');
-            },
+            onPressed: controller.handleTip,
           )
         ],
       ),
