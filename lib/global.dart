@@ -30,7 +30,7 @@ class Global {
   static late PackageInfo packageInfo;
 
   /// 是否第一次打开
-  static bool isFirstOpen = false;
+  static bool? isFirstOpen;
 
   /// 是否离线登录
   static bool isOfflineLogin = false;
@@ -59,9 +59,9 @@ class Global {
     HttpUtil();
 
     // 读取设备第一次打开
-    isFirstOpen = !StorageUtil().getBool(STORAGE_DEVICE_ALREADY_OPEN_KEY);
-    if (isFirstOpen) {
-      StorageUtil().setBool(STORAGE_DEVICE_ALREADY_OPEN_KEY, true);
+    isFirstOpen = StorageUtil().getBool(STORAGE_DEVICE_FIRST_OPEN_KEY);
+    if (isFirstOpen == null) {
+      isFirstOpen = true;
     }
 
     // 读取离线用户信息
@@ -77,6 +77,11 @@ class Global {
     //       SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     //   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
     // }
+  }
+
+  // 保存用户已打开APP
+  static saveAlreadyOpen() {
+    StorageUtil().setBool(STORAGE_DEVICE_FIRST_OPEN_KEY, false);
   }
 
   // 持久化 用户信息

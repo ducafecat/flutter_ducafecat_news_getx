@@ -30,9 +30,8 @@ class StorageUtil {
     return _prefs.setBool(key, val);
   }
 
-  bool getBool(String key) {
-    bool? val = _prefs.getBool(key);
-    return val == null ? false : val;
+  bool? getBool(String key) {
+    return _prefs.getBool(key);
   }
 
   Future<bool> remove(String key) {

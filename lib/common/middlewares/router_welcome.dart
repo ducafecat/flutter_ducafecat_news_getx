@@ -4,24 +4,21 @@ import 'package:flutter_ducafecat_news_getx/global.dart';
 
 import 'package:get/get.dart';
 
-/// 检查是否登录
-class RouteAuthMiddleware extends GetMiddleware {
+/// 第一次欢迎页面
+class RouteWelcomeMiddleware extends GetMiddleware {
   // priority 数字小优先级高
   @override
   int? priority = 0;
 
-  RouteAuthMiddleware({required this.priority});
+  RouteWelcomeMiddleware({required this.priority});
 
   @override
   RouteSettings? redirect(String? route) {
-    if (Global.profile.accessToken != null ||
-        route == AppRoutes.SIGN_IN ||
-        route == AppRoutes.SIGN_UP ||
-        route == AppRoutes.INITIAL) {
+    if (Global.isFirstOpen == true) {
       return null;
+    } else if (Global.isOfflineLogin == true) {
+      return RouteSettings(name: AppRoutes.Application);
     } else {
-      Future.delayed(
-          Duration(seconds: 1), () => Get.snackbar("提示", "登录过期,请重新登录"));
       return RouteSettings(name: AppRoutes.SIGN_IN);
     }
   }

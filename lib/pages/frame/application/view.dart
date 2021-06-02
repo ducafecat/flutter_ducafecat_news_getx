@@ -19,15 +19,6 @@ class ApplicationPage extends GetView<ApplicationController> {
                 fontWeight: FontWeight.w600,
               ),
             )),
-        // leading: IconButton(
-        //   icon: Icon(
-        //     Icons.arrow_back,
-        //     color: AppColors.primaryText,
-        //   ),
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        // ),
         actions: <Widget>[
           IconButton(
             icon: Icon(
