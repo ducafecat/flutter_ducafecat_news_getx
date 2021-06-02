@@ -7,7 +7,7 @@ import 'package:flutter_ducafecat_news_getx/common/widgets/widgets.dart';
 import 'package:flutter_ducafecat_news_getx/global.dart';
 import 'package:get/get.dart';
 
-import 'index.dart';
+import 'sign_in.dart';
 
 class SignInController extends GetxController {
   final state = SignInState();
@@ -52,10 +52,19 @@ class SignInController extends GetxController {
       params: params,
     );
     Global.saveProfile(userProfile);
+
+    Get.offAndToNamed(AppRoutes.Application);
   }
 
   @override
   void onReady() {
     super.onReady();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
   }
 }

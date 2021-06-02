@@ -1,6 +1,8 @@
-import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/index.dart';
-import 'package:flutter_ducafecat_news_getx/pages/frame/sign_up/index.dart';
-import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/index.dart';
+import 'package:flutter_ducafecat_news_getx/common/middlewares/middlewares.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/application/application.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/sign_in.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/sign_up/sign_up.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/welcome.dart';
 import 'package:get/get.dart';
 
 part 'app_routes.dart';
@@ -9,6 +11,7 @@ class AppPages {
   static const INITIAL = AppRoutes.INITIAL;
 
   static final List<GetPage> routes = [
+    // 免登陆
     GetPage(
       name: AppRoutes.INITIAL,
       page: () => WelcomePage(),
@@ -23,6 +26,16 @@ class AppPages {
       name: AppRoutes.SIGN_UP,
       page: () => SignUpPage(),
       binding: SignUpBinding(),
+    ),
+
+    // 需要登录
+    GetPage(
+      name: AppRoutes.Application,
+      page: () => ApplicationPage(),
+      binding: ApplicationBinding(),
+      middlewares: [
+        RouteAuthMiddleware(priority: 1),
+      ],
     ),
   ];
 

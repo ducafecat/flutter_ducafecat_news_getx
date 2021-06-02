@@ -7,7 +7,7 @@ import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 import 'package:package_info/package_info.dart';
 
-/// 全局配置
+/// 全局静态数据
 class Global {
   /// 用户配置
   static UserLoginResponseEntity profile = UserLoginResponseEntity(

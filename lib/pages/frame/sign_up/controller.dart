@@ -5,7 +5,7 @@ import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/common/widgets/widgets.dart';
 import 'package:get/get.dart';
 
-import 'index.dart';
+import 'sign_up.dart';
 
 class SignUpController extends GetxController {
   SignUpController();
@@ -69,5 +69,13 @@ class SignUpController extends GetxController {
   @override
   void onReady() {
     super.onReady();
+  }
+
+  @override
+  void dispose() {
+    fullnameController.dispose();
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
   }
 }

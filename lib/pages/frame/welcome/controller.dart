@@ -1,7 +1,7 @@
 import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
 import 'package:get/get.dart';
 
-import 'index.dart';
+import 'welcome.dart';
 
 class WelcomeController extends GetxController {
   final state = WelcomeState();
