@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 
 /// 透明背景 AppBar
-Widget transparentAppBar({
+AppBar transparentAppBar({
   Widget? title,
   Widget? leading,
   List<Widget>? actions,

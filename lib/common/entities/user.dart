@@ -1,5 +1,27 @@
 import 'package:flutter/foundation.dart';
 
+// 注册请求
+class UserRegisterRequestEntity {
+  String? email;
+  String? password;
+
+  UserRegisterRequestEntity({
+    @required this.email,
+    @required this.password,
+  });
+
+  factory UserRegisterRequestEntity.fromJson(Map<String, dynamic> json) =>
+      UserRegisterRequestEntity(
+        email: json["email"],
+        password: json["password"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "email": email,
+        "password": password,
+      };
+}
+
 // 登录请求
 class UserLoginRequestEntity {
   String? email;

@@ -12,4 +12,9 @@ class WelcomeController extends GetxController {
   handleNavSignIn() {
     Get.offAndToNamed(AppRoutes.SIGN_IN);
   }
+
+  @override
+  void onReady() {
+    super.onReady();
+  }
 }

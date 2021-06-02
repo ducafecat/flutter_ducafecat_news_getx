@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ducafecat_news_getx/common/api/api.dart';
-import 'package:flutter_ducafecat_news_getx/common/entity/entity.dart';
+import 'package:flutter_ducafecat_news_getx/common/apis/apis.dart';
+import 'package:flutter_ducafecat_news_getx/common/entities/entities.dart';
+import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
 import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/global.dart';
 import 'package:get/get.dart';
@@ -43,5 +44,12 @@ class SignInController extends GetxController {
       params: params,
     );
     Global.saveProfile(userProfile);
+
+    Get.offAndToNamed(AppRoutes.SIGN_UP);
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/index.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/sign_up/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/index.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,11 @@ class AppPages {
       name: AppRoutes.SIGN_IN,
       page: () => SignInPage(),
       binding: SignInBinding(),
+    ),
+    GetPage(
+      name: AppRoutes.SIGN_UP,
+      page: () => SignInPage(),
+      binding: SignUpBinding(),
     ),
   ];
 

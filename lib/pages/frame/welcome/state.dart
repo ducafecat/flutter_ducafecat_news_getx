@@ -5,5 +5,5 @@ class WelcomeState {
   set obj(value) => this._obj.value = value;
   get obj => this._obj.value;
 
-  WelcomeState() {}
+  // WelcomeState() {}
 }

@@ -1,4 +1,4 @@
-library api;
+library apis;
 
 export 'user.dart';
 export 'news.dart';
