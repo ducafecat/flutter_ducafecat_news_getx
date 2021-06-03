@@ -4,7 +4,7 @@ import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// 缓存图片
-Widget imageCached(
+Widget netImageCached(
   String url, {
   double width = 48,
   double height = 48,

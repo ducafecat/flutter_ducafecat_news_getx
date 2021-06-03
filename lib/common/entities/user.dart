@@ -1,13 +1,11 @@
-import 'package:flutter/foundation.dart';
-
 // 注册请求
 class UserRegisterRequestEntity {
-  String? email;
-  String? password;
+  String email;
+  String password;
 
   UserRegisterRequestEntity({
-    @required this.email,
-    @required this.password,
+    required this.email,
+    required this.password,
   });
 
   factory UserRegisterRequestEntity.fromJson(Map<String, dynamic> json) =>
@@ -24,12 +22,12 @@ class UserRegisterRequestEntity {
 
 // 登录请求
 class UserLoginRequestEntity {
-  String? email;
-  String? password;
+  String email;
+  String password;
 
   UserLoginRequestEntity({
-    @required this.email,
-    @required this.password,
+    required this.email,
+    required this.password,
   });
 
   factory UserLoginRequestEntity.fromJson(Map<String, dynamic> json) =>
@@ -51,7 +49,7 @@ class UserLoginResponseEntity {
   List<String>? channels;
 
   UserLoginResponseEntity({
-    @required this.accessToken,
+    this.accessToken,
     this.displayName,
     this.channels,
   });
@@ -60,16 +58,13 @@ class UserLoginResponseEntity {
       UserLoginResponseEntity(
         accessToken: json["access_token"],
         displayName: json["display_name"],
-        channels: json["channels"] == null
-            ? null
-            : List<String>.from(json["channels"].map((x) => x)),
+        channels: List<String>.from(json["channels"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "access_token": accessToken,
         "display_name": displayName,
-        "channels": channels == null
-            ? null
-            : List<dynamic>.from(channels!.map((x) => x)),
+        "channels":
+            channels == null ? [] : List<dynamic>.from(channels!.map((x) => x)),
       };
 }

@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 /// 输入框
 Widget inputTextEdit({
-  required TextEditingController controller,
+  TextEditingController? controller,
   TextInputType keyboardType = TextInputType.text,
   String? hintText,
   bool isPassword = false,
@@ -43,7 +43,7 @@ Widget inputTextEdit({
 /// email 输入框
 /// 背景白色，文字黑色，带阴影
 Widget inputEmailEdit({
-  required TextEditingController controller,
+  TextEditingController? controller,
   TextInputType keyboardType = TextInputType.text,
   String? hintText,
   bool isPassword = false,

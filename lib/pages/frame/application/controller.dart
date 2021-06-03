@@ -3,7 +3,7 @@ import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 import 'package:get/get.dart';
 
-import 'application.dart';
+import 'index.dart';
 
 class ApplicationController extends GetxController {
   ApplicationController();
@@ -42,6 +42,7 @@ class ApplicationController extends GetxController {
   void onInit() {
     super.onInit();
 
+    // 准备一些静态数据
     tabTitles = ['Welcome', 'Cagegory', 'Bookmarks', 'Account'];
     bottomTabs = <BottomNavigationBarItem>[
       new BottomNavigationBarItem(

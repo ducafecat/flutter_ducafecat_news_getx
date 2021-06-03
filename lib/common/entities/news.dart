@@ -43,18 +43,18 @@ class NewsPageListResponseEntity {
         pages: json["pages"],
         page: json["page"],
         items: json["items"] == null
-            ? null
+            ? []
             : List<NewsItem>.from(
                 json["items"].map((x) => NewsItem.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "counts": counts,
-        "pagesize": pagesize,
-        "pages": pages,
-        "page": page,
+        "counts": counts ?? 0,
+        "pagesize": pagesize ?? 0,
+        "pages": pages ?? 0,
+        "page": page ?? 0,
         "items": items == null
-            ? null
+            ? []
             : List<dynamic>.from(items!.map((x) => x.toJson())),
       };
 }

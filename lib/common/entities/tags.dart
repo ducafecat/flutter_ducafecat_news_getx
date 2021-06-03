@@ -1,17 +1,17 @@
 /// 标签列表 Request
 class TagRequestEntity {
-  String? categoryCode;
-  String? channelCode;
-  String? tag;
-  String? keyword;
-  String? newsID;
+  String categoryCode;
+  String channelCode;
+  String tag;
+  String keyword;
+  String newsID;
 
   TagRequestEntity({
-    this.categoryCode,
-    this.channelCode,
-    this.tag,
-    this.keyword,
-    this.newsID,
+    required this.categoryCode,
+    required this.channelCode,
+    required this.tag,
+    required this.keyword,
+    required this.newsID,
   });
 
   Map<String, dynamic> toJson() => {

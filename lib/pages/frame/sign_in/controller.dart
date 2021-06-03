@@ -7,7 +7,7 @@ import 'package:flutter_ducafecat_news_getx/common/widgets/widgets.dart';
 import 'package:flutter_ducafecat_news_getx/global.dart';
 import 'package:get/get.dart';
 
-import 'sign_in.dart';
+import 'index.dart';
 
 class SignInController extends GetxController {
   final state = SignInState();

@@ -201,6 +201,7 @@ class HttpUtil {
       "cacheKey": cacheKey,
       "cacheDisk": cacheDisk,
     });
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
@@ -223,7 +224,7 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions.headers = requestOptions.headers ?? Map();
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
@@ -246,7 +247,7 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions.headers = requestOptions.headers ?? Map();
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
@@ -269,7 +270,7 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions.headers = requestOptions.headers ?? Map();
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
@@ -292,7 +293,7 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions.headers = requestOptions.headers ?? Map();
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
@@ -315,7 +316,7 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions.headers = requestOptions.headers ?? Map();
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);
@@ -339,7 +340,7 @@ class HttpUtil {
     Options? options,
   }) async {
     Options requestOptions = options ?? Options();
-    requestOptions.headers = requestOptions.headers ?? Map();
+    requestOptions.headers = requestOptions.headers ?? {};
     Map<String, dynamic>? authorization = getAuthorizationHeader();
     if (authorization != null) {
       requestOptions.headers!.addAll(authorization);

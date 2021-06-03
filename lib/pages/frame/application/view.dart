@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 import 'package:flutter_ducafecat_news_getx/common/widgets/widgets.dart';
+import 'package:flutter_ducafecat_news_getx/pages/frame/main/index.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'application.dart';
+import 'index.dart';
 
 class ApplicationPage extends GetView<ApplicationController> {
   // 顶部导航
@@ -35,7 +36,7 @@ class ApplicationPage extends GetView<ApplicationController> {
     return PageView(
       physics: NeverScrollableScrollPhysics(),
       children: <Widget>[
-        Text('MainPage'),
+        MainPage(),
         Text('CategoryPage'),
         Text('BookmarksPage'),
         Text('AccountPage'),

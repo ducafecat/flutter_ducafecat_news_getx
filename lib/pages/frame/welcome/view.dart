@@ -3,7 +3,7 @@ import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'welcome.dart';
+import 'index.dart';
 
 class WelcomePage extends GetView<WelcomeController> {
   /// 页头标题

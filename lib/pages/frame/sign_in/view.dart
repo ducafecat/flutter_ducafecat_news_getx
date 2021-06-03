@@ -4,7 +4,7 @@ import 'package:flutter_ducafecat_news_getx/common/widgets/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import 'sign_in.dart';
+import 'index.dart';
 
 class SignInPage extends GetView<SignInController> {
   // logo
@@ -128,9 +128,8 @@ class SignInPage extends GetView<SignInController> {
           // Spacer(),
 
           // Fogot password
-          Container(
-            height: 23.h,
-            margin: EdgeInsets.only(top: 20.h),
+          Padding(
+            padding: EdgeInsets.only(top: 8.0),
             child: TextButton(
               onPressed: controller.handleFogotPassword,
               child: Text(
