@@ -2,6 +2,10 @@
 
 新闻客户端 Getx 版本
 
+## 配套 vscode 插件
+
+https://marketplace.visualstudio.com/items?itemName=ducafecat.getx-template
+
 ## 适配目标
 
 - android
