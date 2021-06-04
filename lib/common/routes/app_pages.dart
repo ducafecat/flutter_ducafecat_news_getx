@@ -1,5 +1,5 @@
 import 'package:flutter_ducafecat_news_getx/common/middlewares/middlewares.dart';
-import 'package:flutter_ducafecat_news_getx/pages/frame/application/index.dart';
+import 'package:flutter_ducafecat_news_getx/pages/application/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_up/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/index.dart';
