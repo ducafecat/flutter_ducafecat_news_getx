@@ -57,6 +57,8 @@
 
 ![](README/catalog.png)
 
+还是延续我第一版的目录结构，虽然 getx-cli 的目录也很简洁，但是我这个也没大问题。
+
 ### common 通用组件
 
 | 名称        | 说明           |
@@ -74,6 +76,8 @@
 ### pages 业务界面
 
 ![One-way data flow](README/one-way-data-flow-04fe46332c1ccb3497ecb04b94e55b97.png)
+
+界面代码拆分也是继承了 redux 的设计思想，视图、动作、状态，进行拆分。
 
 | 名称            | 说明     |
 | --------------- | -------- |
