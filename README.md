@@ -38,6 +38,10 @@
 
   必装 代码提示、代码块
 
+- [Json to Dart Model](https://marketplace.visualstudio.com/items?itemName=hirantha.json-to-dart)
+
+  支持空安全，推荐
+
 - [Flutter GetX Generator - 猫哥](https://marketplace.visualstudio.com/items?itemName=ducafecat.getx-template)
 
   这个插件用来快速创建 `page` 代码，计划（json to dart、iconfont、test unit）
@@ -52,6 +56,7 @@
 - [猫哥 getx_quick_start](https://github.com/ducafecat/getx_quick_start)
 - [flutter_use](https://github.com/CNAD666/flutter_use)
 - [redux part-1-overview-concepts](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
+- [todo_getx](https://github.com/loicgeek/todo_getx)
 
 ## 目录结构
 
@@ -87,6 +92,8 @@
 | state.dart      | 状态     |
 | view.dart       | 视图     |
 | widgets         | 组件     |
+
+## GetX 上下拉列表界面
 
 ## 状态管理
 

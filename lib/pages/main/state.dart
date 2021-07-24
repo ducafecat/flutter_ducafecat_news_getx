@@ -7,7 +7,7 @@ class MainState {
   set categories(value) => _categories.value = value;
   get categories => _categories.value;
 
-// 新闻翻页
+  // 新闻翻页
   var _newsPageList = Rx<NewsPageListResponseEntity?>(null);
   set newsPageList(value) => _newsPageList.value = value;
   get newsPageList => _newsPageList.value;

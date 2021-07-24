@@ -4,12 +4,16 @@ class NewsPageListRequestEntity {
   String? channelCode;
   String? tag;
   String? keyword;
+  int? pageNum;
+  int? pageSize;
 
   NewsPageListRequestEntity({
     this.categoryCode,
     this.channelCode,
     this.tag,
     this.keyword,
+    this.pageNum,
+    this.pageSize,
   });
 
   Map<String, dynamic> toJson() => {
@@ -17,6 +21,8 @@ class NewsPageListRequestEntity {
         "channelCode": channelCode,
         "tag": tag,
         "keyword": keyword,
+        "pageNum": pageNum,
+        "pageSize": pageSize,
       };
 }
 
