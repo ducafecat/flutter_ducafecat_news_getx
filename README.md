@@ -66,6 +66,18 @@ https://space.bilibili.com/404904528/channel/detail?cid=177514&ctype=0
 - [redux part-1-overview-concepts](https://redux.js.org/tutorials/essentials/part-1-overview-concepts)
 - [todo_getx](https://github.com/loicgeek/todo_getx)
 
+## Mock 数据
+
+- api
+
+https://yapi.ducafecat.tech/mock/11
+
+- 查看接口方式
+
+https://yapi.ducafecat.tech
+api@ducafecat.tech
+123456
+
 ## 目录结构
 
 ![](README/catalog.png)
@@ -428,6 +440,110 @@ class _StaggerRouteState extends State<StaggerRoute> with TickerProviderStateMix
   - 多页面切换：购物车
 
 > 请分清楚 `GetX` 是一种组件的封装方式，他只是包含了 `路由`、`状态管理`、`弹出框` ...
+
+## 采用 scheme 方式外部打开 APP
+
+- 效果
+
+![](README/scheme.gif)
+
+- 参考
+
+  > https://pub.flutter-io.cn/packages/uni_links
+
+- android
+
+> android/app/src/main/AndroidManifest.xml
+
+```xml
+<activity
+  ... >
+  ...
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <data
+            android:scheme="newsgetx"
+            />
+    </intent-filter>
+</activity>
+```
+
+- ios
+
+> Runner -> TARGETS -> Info -> URL Types
+
+![](README/2021-09-18-22-26-23.png)
+
+- 插件 uni_links
+
+```yaml
+dependencies:
+  ...
+  uni_links: ^0.5.1
+```
+
+- flutter 代码
+
+> lib/pages/application/controller.dart
+
+```dart
+
+  /// scheme 内部打开
+  bool isInitialUriIsHandled = false;
+  StreamSubscription? uriSub;
+
+  // 第一次打开
+  Future<void> handleInitialUri() async {
+    if (!isInitialUriIsHandled) {
+      isInitialUriIsHandled = true;
+      try {
+        final uri = await getInitialUri();
+        if (uri == null) {
+          print('no initial uri');
+        } else {
+          // 这里获取了 scheme 请求
+          print('got initial uri: $uri');
+        }
+      } on PlatformException {
+        print('falied to get initial uri');
+      } on FormatException catch (err) {
+        print('malformed initial uri, ' + err.toString());
+      }
+    }
+  }
+
+  // 程序打开时介入
+  void handleIncomingLinks() {
+    if (!kIsWeb) {
+      uriSub = uriLinkStream.listen((Uri? uri) {
+        // 这里获取了 scheme 请求
+        print('got uri: $uri');
+      }, onError: (Object err) {
+        print('got err: $err');
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    uriSub?.cancel();
+    super.dispose();
+  }
+```
+
+- 网页中调用
+
+```html
+<a href="newsgetx://com.tpns.push/notify/message/123"
+  >newsgetx://com.tpns.push/notify/message/123</a
+>
+```
+
+- 结果
+
+![](README/2021-09-18-22-52-54.png)
 
 ## 路由设计
 

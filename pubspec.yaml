@@ -80,6 +80,9 @@ dependencies:
   # 错误收集
   sentry: ^5.0.0
 
+  # 通过 scheme 打开APP 获取 参数
+  uni_links: ^0.5.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
