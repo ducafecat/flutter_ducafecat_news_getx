@@ -74,9 +74,11 @@ https://yapi.ducafecat.tech/mock/11
 
 - 查看接口方式
 
+```
 https://yapi.ducafecat.tech
 api@ducafecat.tech
 123456
+```
 
 ## 目录结构
 
@@ -449,7 +451,10 @@ class _StaggerRouteState extends State<StaggerRoute> with TickerProviderStateMix
 
 - 参考
 
-  > https://pub.flutter-io.cn/packages/uni_links
+  - https://developer.android.com/codelabs/basic-android-kotlin-training-activities-intents#0
+  - https://developer.android.com/reference/android/content/Intent
+  - https://www.runoob.com/w3cnote/android-tutorial-intent-base.html
+  - https://pub.flutter-io.cn/packages/uni_links
 
 - android
 
