@@ -1,5 +1,6 @@
 import 'package:flutter_ducafecat_news_getx/common/middlewares/middlewares.dart';
 import 'package:flutter_ducafecat_news_getx/pages/application/index.dart';
+import 'package:flutter_ducafecat_news_getx/pages/category/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_in/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/sign_up/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/index.dart';
@@ -39,6 +40,13 @@ class AppPages {
       middlewares: [
         RouteAuthMiddleware(priority: 1),
       ],
+    ),
+
+    // 分类列表
+    GetPage(
+      name: AppRoutes.Category,
+      page: () => CategoryPage(),
+      binding: CategoryBinding(),
     ),
   ];
 

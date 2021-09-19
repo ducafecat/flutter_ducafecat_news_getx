@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
 import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
 import 'package:get/get.dart';
@@ -71,6 +72,11 @@ class ApplicationController extends GetxController {
       uriSub = uriLinkStream.listen((Uri? uri) {
         // 这里获取了 scheme 请求
         print('got uri: $uri');
+
+        // if (uri!.pathSegments[1].toLowerCase() == 'category') {
+        if (uri != null && uri.path == '/notify/category') {
+          Get.toNamed(AppRoutes.Category);
+        }
       }, onError: (Object err) {
         print('got err: $err');
       });

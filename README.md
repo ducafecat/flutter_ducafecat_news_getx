@@ -525,6 +525,10 @@ dependencies:
       uriSub = uriLinkStream.listen((Uri? uri) {
         // 这里获取了 scheme 请求
         print('got uri: $uri');
+
+        if (uri != null && uri.path == '/notify/category') {
+          Get.toNamed(AppRoutes.Category);
+        }
       }, onError: (Object err) {
         print('got err: $err');
       });
@@ -541,6 +545,10 @@ dependencies:
 - 网页中调用
 
 ```html
+<a href="newsgetx://com.tpns.push/notify/category"
+  >newsgetx://com.tpns.push/notify/category</a
+>
+
 <a href="newsgetx://com.tpns.push/notify/message/123"
   >newsgetx://com.tpns.push/notify/message/123</a
 >

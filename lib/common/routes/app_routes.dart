@@ -7,4 +7,5 @@ abstract class AppRoutes {
   static const NotFound = '/not_found';
 
   static const Application = '/application';
+  static const Category = '/category';
 }
