@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
-import 'package:flutter_ducafecat_news_getx/global.dart';
+import 'package:flutter_ducafecat_news_getx/common/routes/routes.dart';
+import 'package:flutter_ducafecat_news_getx/common/store/store.dart';
 
 import 'package:get/get.dart';
 
@@ -14,7 +14,7 @@ class RouteAuthMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    if (Global.profile.accessToken != null ||
+    if (UserStore.to.isLogin ||
         route == AppRoutes.SIGN_IN ||
         route == AppRoutes.SIGN_UP ||
         route == AppRoutes.INITIAL) {

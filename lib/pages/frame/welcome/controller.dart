@@ -1,5 +1,5 @@
-import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
-import 'package:flutter_ducafecat_news_getx/global.dart';
+import 'package:flutter_ducafecat_news_getx/common/routes/routes.dart';
+import 'package:flutter_ducafecat_news_getx/common/store/store.dart';
 import 'package:get/get.dart';
 
 import 'index.dart';
@@ -10,8 +10,8 @@ class WelcomeController extends GetxController {
   WelcomeController();
 
   // 跳转 注册界面
-  handleNavSignIn() {
-    Global.saveAlreadyOpen();
+  handleNavSignIn() async {
+    await ConfigStore.to.saveAlreadyOpen();
     Get.offAndToNamed(AppRoutes.SIGN_IN);
   }
 

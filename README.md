@@ -443,7 +443,7 @@ class _StaggerRouteState extends State<StaggerRoute> with TickerProviderStateMix
 
 > 请分清楚 `GetX` 是一种组件的封装方式，他只是包含了 `路由`、`状态管理`、`弹出框` ...
 
-## 采用 scheme 方式外部打开 APP
+## Deep Linking 方式外部打开 APP
 
 - 效果
 
@@ -451,6 +451,7 @@ class _StaggerRouteState extends State<StaggerRoute> with TickerProviderStateMix
 
 - 参考
 
+  - https://flutter.dev/docs/development/ui/navigation/deep-linking
   - https://developer.android.com/codelabs/basic-android-kotlin-training-activities-intents#0
   - https://developer.android.com/reference/android/content/Intent
   - https://www.runoob.com/w3cnote/android-tutorial-intent-base.html

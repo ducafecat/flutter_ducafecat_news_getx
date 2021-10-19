@@ -3,8 +3,11 @@ import 'dart:async';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:flutter_ducafecat_news_getx/common/store/store.dart';
+import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
-import 'package:flutter_ducafecat_news_getx/global.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart' hide FormData;
 
 /*
   * http 操作类
@@ -79,13 +82,9 @@ class HttpUtil {
       },
       onError: (DioError e, handler) {
         // Do something with response error
+        Loading.dismiss();
         ErrorEntity eInfo = createErrorEntity(e);
-        switch (eInfo.code) {
-          case 401: // 没有权限 重新登录
-            // goLoginPage(context);
-            break;
-          default:
-        }
+        onError(eInfo);
         return handler.next(e); //continue
         // 如果你想完成请求并返回一些自定义数据，可以resolve 一个`Response`,如`handler.resolve(response)`。
         // 这样请求将会被终止，上层then会被调用，then中返回的数据将是你的自定义response.
@@ -96,6 +95,24 @@ class HttpUtil {
   /*
    * error统一处理
    */
+
+  // 错误处理
+  void onError(ErrorEntity eInfo) {
+    print('error.code -> ' +
+        eInfo.code.toString() +
+        ', error.message -> ' +
+        eInfo.message);
+    switch (eInfo.code) {
+      case 401:
+        UserStore.to.onLogout();
+        EasyLoading.showError(eInfo.message);
+        break;
+      default:
+        EasyLoading.showError('未知错误');
+        break;
+    }
+  }
+
   // 错误信息
   ErrorEntity createErrorEntity(DioError error) {
     switch (error.type) {
@@ -107,10 +124,13 @@ class HttpUtil {
         return ErrorEntity(code: -1, message: "请求超时");
       case DioErrorType.receiveTimeout:
         return ErrorEntity(code: -1, message: "响应超时");
+      case DioErrorType.cancel:
+        return ErrorEntity(code: -1, message: "请求取消");
       case DioErrorType.response:
         {
           try {
-            int? errCode = error.response?.statusCode;
+            int errCode =
+                error.response != null ? error.response!.statusCode! : -1;
             // String errMsg = error.response.statusMessage;
             // return ErrorEntity(code: errCode, message: errMsg);
             switch (errCode) {
@@ -137,7 +157,9 @@ class HttpUtil {
                   // return ErrorEntity(code: errCode, message: "未知错误");
                   return ErrorEntity(
                     code: errCode,
-                    message: error.response?.statusMessage,
+                    message: error.response != null
+                        ? error.response!.statusMessage!
+                        : "",
                   );
                 }
             }
@@ -164,12 +186,9 @@ class HttpUtil {
 
   /// 读取本地配置
   Map<String, dynamic>? getAuthorizationHeader() {
-    var headers;
-    String? accessToken = Global.profile.accessToken;
-    if (accessToken != null) {
-      headers = {
-        'Authorization': 'Bearer $accessToken',
-      };
+    var headers = <String, dynamic>{};
+    if (Get.isRegistered<UserStore>() && UserStore.to.hasToken == true) {
+      headers['Authorization'] = 'Bearer ${UserStore.to.token}';
     }
     return headers;
   }
@@ -361,12 +380,12 @@ class HttpUtil {
 
 // 异常处理
 class ErrorEntity implements Exception {
-  int? code;
-  String? message;
-  ErrorEntity({this.code, this.message});
+  int code = -1;
+  String message = "";
+  ErrorEntity({required this.code, required this.message});
 
   String toString() {
-    if (message == null) return "Exception";
+    if (message == "") return "Exception";
     return "Exception: code $code, $message";
   }
 }

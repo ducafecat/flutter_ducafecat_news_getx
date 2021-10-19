@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_ducafecat_news_getx/common/middlewares/middlewares.dart';
 import 'package:flutter_ducafecat_news_getx/pages/application/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/category/index.dart';
@@ -6,10 +7,12 @@ import 'package:flutter_ducafecat_news_getx/pages/frame/sign_up/index.dart';
 import 'package:flutter_ducafecat_news_getx/pages/frame/welcome/index.dart';
 import 'package:get/get.dart';
 
-part 'app_routes.dart';
+import 'routes.dart';
 
 class AppPages {
   static const INITIAL = AppRoutes.INITIAL;
+  static final RouteObserver<Route> observer = RouteObservers();
+  static List<String> history = [];
 
   static final List<GetPage> routes = [
     // 免登陆

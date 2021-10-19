@@ -24,4 +24,19 @@ class UserAPI {
     );
     return UserRegisterRequestEntity.fromJson(response);
   }
+
+  /// Profile
+  static Future<UserLoginResponseEntity> profile() async {
+    var response = await HttpUtil().post(
+      '/user/profile',
+    );
+    return UserLoginResponseEntity.fromJson(response);
+  }
+
+  /// Logout
+  static Future logout() async {
+    return await HttpUtil().post(
+      '/user/logout',
+    );
+  }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_ducafecat_news_getx/common/routes/app_pages.dart';
-import 'package:flutter_ducafecat_news_getx/global.dart';
+import 'package:flutter_ducafecat_news_getx/common/routes/routes.dart';
+import 'package:flutter_ducafecat_news_getx/common/store/store.dart';
 
 import 'package:get/get.dart';
 
@@ -14,9 +14,9 @@ class RouteWelcomeMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
-    if (Global.isFirstOpen == true) {
+    if (ConfigStore.to.isFirstOpen == true) {
       return null;
-    } else if (Global.isOfflineLogin == true) {
+    } else if (UserStore.to.isLogin == true) {
       return RouteSettings(name: AppRoutes.Application);
     } else {
       return RouteSettings(name: AppRoutes.SIGN_IN);
