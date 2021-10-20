@@ -565,7 +565,7 @@ dependencies:
 
 文件
 
- `lib/common/routes/pages.dart`
+`lib/common/routes/pages.dart`
 
 ```dart
 class AppRoutes {
@@ -579,7 +579,7 @@ class AppRoutes {
 }
 ```
 
- `lib/common/routes/names.dart`
+`lib/common/routes/names.dart`
 
 ```dart
 class AppPages {
@@ -773,7 +773,7 @@ class MyApp extends StatelessWidget {
 
 > 我写了个 `main() async` 按顺序同步执行
 >
-> 这个 `MyApp` 比较典型，包含了 `ScreenUtilInit` `RefreshConfiguration` `GetMaterialApp` `EasyLoading` `translations` `getPages`  `theme` 这些初始，大家可以参考
+> 这个 `MyApp` 比较典型，包含了 `ScreenUtilInit` `RefreshConfiguration` `GetMaterialApp` `EasyLoading` `translations` `getPages` `theme` 这些初始，大家可以参考
 
 ## 本地数据持久化
 
@@ -963,7 +963,7 @@ class UserAPI {
 
 再来说说 401 ，这是服务器返回的没有授权的状态，我们获取后需要弹出登录界面。
 
-这个操作可以放在  dio 的错误处理 `lib/common/utils/http.dart`
+这个操作可以放在 dio 的错误处理 `lib/common/utils/http.dart`
 
 ```dart
 // 错误处理
@@ -1134,6 +1134,23 @@ class UserStore extends GetxController {
 
 ```
 
+## 一些常见错误
 
+### macos 下 network 没有权限
+
+错误信息
+
+```
+SocketException: Connection failed (OS Error: Operation not permitted, errno = 1)
+```
+
+解决
+
+`macos/Runner/DebugProfile.entitlements`
+
+```
+<key>com.apple.security.network.client</key>
+<true/>
+```
 
 end

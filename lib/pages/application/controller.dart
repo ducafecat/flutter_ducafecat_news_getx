@@ -89,8 +89,8 @@ class ApplicationController extends GetxController {
   void onInit() {
     super.onInit();
 
-    handleInitialUri();
-    handleIncomingLinks();
+    // handleInitialUri();
+    // handleIncomingLinks();
 
     // 准备一些静态数据
     tabTitles = ['Welcome', 'Cagegory', 'Bookmarks', 'Account'];
