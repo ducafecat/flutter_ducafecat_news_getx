@@ -561,38 +561,579 @@ dependencies:
 
 ## 路由设计
 
+通过 GetPage 方式声明 名称、组件、数据绑定、中间件
+
+文件
+
+ `lib/common/routes/pages.dart`
+
+```dart
+class AppRoutes {
+  static const INITIAL = '/';
+  static const SIGN_IN = '/sign_in';
+  static const SIGN_UP = '/sign_up';
+  static const NotFound = '/not_found';
+
+  static const Application = '/application';
+  static const Category = '/category';
+}
+```
+
+ `lib/common/routes/names.dart`
+
+```dart
+class AppPages {
+  static const INITIAL = AppRoutes.INITIAL;
+  static final RouteObserver<Route> observer = RouteObservers();
+  static List<String> history = [];
+
+  static final List<GetPage> routes = [
+    // 免登陆
+    GetPage(
+      name: AppRoutes.INITIAL,
+      page: () => WelcomePage(),
+      binding: WelcomeBinding(),
+      middlewares: [
+        RouteWelcomeMiddleware(priority: 1),
+      ],
+    ),
+    ...
+```
+
+## 中间件
+
+### 登录验证
+
+通过 继承 `GetMiddleware` 并重写 `redirect` 方法，如果没有登录，指向登录页。
+
+`lib/common/middlewares/router_auth.dart`
+
+```dart
+/// 检查是否登录
+class RouteAuthMiddleware extends GetMiddleware {
+  // priority 数字小优先级高
+  @override
+  int? priority = 0;
+
+  RouteAuthMiddleware({required this.priority});
+
+  @override
+  RouteSettings? redirect(String? route) {
+    if (UserStore.to.isLogin ||
+        route == AppRoutes.SIGN_IN ||
+        route == AppRoutes.SIGN_UP ||
+        route == AppRoutes.INITIAL) {
+      return null;
+    } else {
+      Future.delayed(
+          Duration(seconds: 1), () => Get.snackbar("提示", "登录过期,请重新登录"));
+      return RouteSettings(name: AppRoutes.SIGN_IN);
+    }
+  }
+}
+```
+
+### 欢迎屏幕
+
+如果是第一次登录去欢迎屏幕，已登录的去首页，没登录的去登录页。
+
+`lib/common/middlewares/router_welcome.dart`
+
+```dart
+/// 第一次欢迎页面
+class RouteWelcomeMiddleware extends GetMiddleware {
+  // priority 数字小优先级高
+  @override
+  int? priority = 0;
+
+  RouteWelcomeMiddleware({required this.priority});
+
+  @override
+  RouteSettings? redirect(String? route) {
+    if (ConfigStore.to.isFirstOpen == true) {
+      return null;
+    } else if (UserStore.to.isLogin == true) {
+      return RouteSettings(name: AppRoutes.Application);
+    } else {
+      return RouteSettings(name: AppRoutes.SIGN_IN);
+    }
+  }
+}
+```
+
 ## 全局数据
+
+主要是采用 `GetxService` 的全局机制，把一些需要初始化 全局使用的功能封装起来，如这里的本地持久化。
+
+`lib/common/services/storage.dart`
+
+```dart
+class StorageService extends GetxService {
+  static StorageService get to => Get.find();
+  late final SharedPreferences _prefs;
+
+  Future<StorageService> init() async {
+    _prefs = await SharedPreferences.getInstance();
+    return this;
+  }
+```
+
+> 注意这里的 单例方式 `static StorageService get to => Get.find();`
+>
+> 以后全局使用可以 `StorageService.to.xxx`
+
+定义完之后，在 `run man` 之前完成必要的初始，有些其实可以懒加载，这样不卡 `io`。
+
+`lib/global.dart`
+
+```dart
+class Global {
+  /// 初始化
+  static Future init() async {
+    WidgetsFlutterBinding.ensureInitialized();
+    await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+    setSystemUi();
+    Loading();
+
+    await Get.putAsync<StorageService>(() => StorageService().init());
+
+    Get.put<ConfigStore>(ConfigStore());
+    Get.put<UserStore>(UserStore());
+  }
+
+  static void setSystemUi() {
+    if (GetPlatform.isAndroid) {
+      SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.light,
+        statusBarIconBrightness: Brightness.dark,
+        systemNavigationBarDividerColor: Colors.transparent,
+        systemNavigationBarColor: Colors.white,
+        systemNavigationBarIconBrightness: Brightness.dark,
+      );
+      SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+    }
+  }
+}
+
+```
+
+> 这里的 `init` 方法就是我们要优先 `runApp` 执行的方法
+>
+> 如果要异步初始，这样调用 `await Get.putAsync<StorageService>(() => StorageService().init());`
+>
+> 通过 `Get.put<ConfigStore>(ConfigStore());` 这样的方式初始全局对象
+
+`lib/main.dart`
+
+```dart
+Future<void> main() async {
+  await Global.init();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ScreenUtilInit(
+      designSize: Size(375, 812),
+      builder: () => RefreshConfiguration(
+        headerBuilder: () => ClassicHeader(),
+        footerBuilder: () => ClassicFooter(),
+        hideFooterWhenNotFull: true,
+        headerTriggerDistance: 80,
+        maxOverScrollExtent: 100,
+        footerTriggerDistance: 150,
+        child: GetMaterialApp(
+          title: 'News',
+          theme: AppTheme.light,
+          debugShowCheckedModeBanner: false,
+          initialRoute: AppPages.INITIAL,
+          getPages: AppPages.routes,
+          builder: EasyLoading.init(),
+          translations: TranslationService(),
+          navigatorObservers: [AppPages.observer],
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: ConfigStore.to.languages,
+          locale: ConfigStore.to.locale,
+          fallbackLocale: Locale('en', 'US'),
+          enableLog: true,
+          logWriterCallback: Logger.write,
+        ),
+      ),
+    );
+  }
+}
+```
+
+> 我写了个 `main() async` 按顺序同步执行
+>
+> 这个 `MyApp` 比较典型，包含了 `ScreenUtilInit` `RefreshConfiguration` `GetMaterialApp` `EasyLoading` `translations` `getPages`  `theme` 这些初始，大家可以参考
+
+## 本地数据持久化
+
+用到了组件 `shared_preferences`
+
+封装成了全局对象 `lib/common/services/storage.dart`
+
+```dart
+class StorageService extends GetxService {
+  static StorageService get to => Get.find();
+  late final SharedPreferences _prefs;
+
+  Future<StorageService> init() async {
+    _prefs = await SharedPreferences.getInstance();
+    return this;
+  }
+
+  Future<bool> setString(String key, String value) async {
+    return await _prefs.setString(key, value);
+  }
+
+  Future<bool> setBool(String key, bool value) async {
+    return await _prefs.setBool(key, value);
+  }
+
+  Future<bool> setList(String key, List<String> value) async {
+    return await _prefs.setStringList(key, value);
+  }
+
+  String getString(String key) {
+    return _prefs.getString(key) ?? '';
+  }
+
+  bool getBool(String key) {
+    return _prefs.getBool(key) ?? false;
+  }
+
+  List<String> getList(String key) {
+    return _prefs.getStringList(key) ?? [];
+  }
+
+  Future<bool> remove(String key) async {
+    return await _prefs.remove(key);
+  }
+}
+
+```
+
+> 单例方式访问 `StorageService.to.setString(xxxx)`
 
 ## 数据模型
 
+推荐大家使用三方的 json to model 插件
+
+我这边用的是 [Paste JSON as Code](https://marketplace.visualstudio.com/items?itemName=quicktype.quicktype)
+
+这些实例对象都放在了 `lib/common/entities` 目录下
+
+有一点要建议大家，就是在 api 接口请求的时候 也要写实例对象来严格控制类型，方便排错，否则都是 `map` 后期大家都不好维护。
+
+举例 `lib/common/entities/user.dart`
+
+```dart
+// 注册请求
+class UserRegisterRequestEntity {
+  String email;
+  String password;
+
+  UserRegisterRequestEntity({
+    required this.email,
+    required this.password,
+  });
+
+  factory UserRegisterRequestEntity.fromJson(Map<String, dynamic> json) =>
+      UserRegisterRequestEntity(
+        email: json["email"],
+        password: json["password"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "email": email,
+        "password": password,
+      };
+}
+
+// 登录请求
+class UserLoginRequestEntity {
+  String email;
+  String password;
+
+  UserLoginRequestEntity({
+    required this.email,
+    required this.password,
+  });
+
+  factory UserLoginRequestEntity.fromJson(Map<String, dynamic> json) =>
+      UserLoginRequestEntity(
+        email: json["email"],
+        password: json["password"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "email": email,
+        "password": password,
+      };
+}
+
+// 登录返回
+class UserLoginResponseEntity {
+  String? accessToken;
+  String? displayName;
+  List<String>? channels;
+
+  UserLoginResponseEntity({
+    this.accessToken,
+    this.displayName,
+    this.channels,
+  });
+
+  factory UserLoginResponseEntity.fromJson(Map<String, dynamic> json) =>
+      UserLoginResponseEntity(
+        accessToken: json["access_token"],
+        displayName: json["display_name"],
+        channels: List<String>.from(json["channels"].map((x) => x)),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "access_token": accessToken,
+        "display_name": displayName,
+        "channels":
+            channels == null ? [] : List<dynamic>.from(channels!.map((x) => x)),
+      };
+}
+
+```
+
+> 可以看到 `UserRegisterRequestEntity` 就是请求的时候的对象
+
+api 接口代码
+
+```dart
+/// 用户
+class UserAPI {
+  /// 登录
+  static Future<UserLoginResponseEntity> login({
+    UserLoginRequestEntity? params,
+  }) async {
+    var response = await HttpUtil().post(
+      '/user/login',
+      data: params?.toJson(),
+    );
+    return UserLoginResponseEntity.fromJson(response);
+  }
+```
+
+> 可以看到这个接口的输入输出都已经包装好，这样强类型 后期排错 很方便。
+
 ## http 拉取数据
+
+我并没有用 `GetConnect` ，而是采用了 `dio` ，主要还是考虑稳健性。
+
+所有的操作还是封装在了 `lib/common/utils/http.dart`
+
+> 代码我就补贴了，篇幅太长，大家自己看下
+>
+> 封装了常用的 restful 操作 `get` `post` `put` `delete` `patch`
+>
+> 为了适合个别服务端组件又加入 `postForm` `postStream`
+>
+> 错误处理 `onError` 罗列了常见的错误
 
 ## 用户登录注销&401
 
+注销的时候需要清理下本地的缓存，比如 `token` `profile` 这类数据。
+
+具体代码可以参考 `lib/common/store/user.dart`
+
+```dart
+  // 注销
+  Future<void> onLogout() async {
+    if (_isLogin.value) await UserAPI.logout();
+    await StorageService.to.remove(STORAGE_USER_TOKEN_KEY);
+    _isLogin.value = false;
+    token = '';
+  }
+```
+
+再来说说 401 ，这是服务器返回的没有授权的状态，我们获取后需要弹出登录界面。
+
+这个操作可以放在  dio 的错误处理 `lib/common/utils/http.dart`
+
+```dart
+// 错误处理
+void onError(ErrorEntity eInfo) {
+    print('error.code -> ' +
+        eInfo.code.toString() +
+        ', error.message -> ' +
+        eInfo.message);
+    switch (eInfo.code) {
+      case 401:
+        UserStore.to.onLogout();
+        EasyLoading.showError(eInfo.message);
+        break;
+      default:
+        EasyLoading.showError('未知错误');
+        break;
+    }
+  }
+```
+
+> 一旦发现 `eInfo.code` 是 `401` ，就直接 onLogout 操作，并弹出消息提示。
+
+`ErrorEntity` 是我封装的错误信息格式化
+
+```dart
+// 错误信息
+  ErrorEntity createErrorEntity(DioError error) {
+    switch (error.type) {
+      case DioErrorType.cancel:
+        return ErrorEntity(code: -1, message: "请求取消");
+      case DioErrorType.connectTimeout:
+        return ErrorEntity(code: -1, message: "连接超时");
+      case DioErrorType.sendTimeout:
+        return ErrorEntity(code: -1, message: "请求超时");
+      case DioErrorType.receiveTimeout:
+        return ErrorEntity(code: -1, message: "响应超时");
+      case DioErrorType.cancel:
+        return ErrorEntity(code: -1, message: "请求取消");
+      case DioErrorType.response:
+        {
+          try {
+            int errCode =
+                error.response != null ? error.response!.statusCode! : -1;
+            // String errMsg = error.response.statusMessage;
+            // return ErrorEntity(code: errCode, message: errMsg);
+            switch (errCode) {
+              case 400:
+                return ErrorEntity(code: errCode, message: "请求语法错误");
+              case 401:
+                return ErrorEntity(code: errCode, message: "没有权限");
+              case 403:
+                return ErrorEntity(code: errCode, message: "服务器拒绝执行");
+              case 404:
+                return ErrorEntity(code: errCode, message: "无法连接服务器");
+              case 405:
+                return ErrorEntity(code: errCode, message: "请求方法被禁止");
+              case 500:
+                return ErrorEntity(code: errCode, message: "服务器内部错误");
+              case 502:
+                return ErrorEntity(code: errCode, message: "无效的请求");
+              case 503:
+                return ErrorEntity(code: errCode, message: "服务器挂了");
+              case 505:
+                return ErrorEntity(code: errCode, message: "不支持HTTP协议请求");
+              default:
+                {
+                  // return ErrorEntity(code: errCode, message: "未知错误");
+                  return ErrorEntity(
+                    code: errCode,
+                    message: error.response != null
+                        ? error.response!.statusMessage!
+                        : "",
+                  );
+                }
+            }
+          } on Exception catch (_) {
+            return ErrorEntity(code: -1, message: "未知错误");
+          }
+        }
+      default:
+        {
+          return ErrorEntity(code: -1, message: error.message);
+        }
+    }
+  }
+```
+
 ## 动态权限
 
-## APP 升级
+前端这边如果涉及权限的检查，你还是可以写到路由中间件中，一旦发现路由变动就去鉴权，看看是否有权限，这个用户的权限可以再拉取 `profile` 中的 `rules` 这样的信息。
 
-## sentry 错误收集
+```dart
+class AuthorityMiddleware extends GetMiddleware {
+  // priority 数字小优先级高
+  @override
+  int? priority = 0;
 
-## iconfont 矢量图标
+  AuthorityMiddleware({required this.priority});
 
-## test 单元测试
+  @override
+  RouteSettings? redirect(String? route) {
+    ......
+    在这里实现
+  }
+}
+```
 
-## 埋点
+## 用户数据
 
-## 数据缓存
+这个需要全局化 `lib/common/store/user.dart`
 
-## 样式全局配置
+把用户的 `token` `profile` 是否登录，这样的状态都维护起来。
 
-## 国际化
+```dart
+class UserStore extends GetxController {
+  static UserStore get to => Get.find();
 
-## GRAPHQL
+  // 是否登录
+  final _isLogin = false.obs;
+  // 令牌 token
+  String token = '';
+  // 用户 profile
+  final _profile = UserLoginResponseEntity().obs;
 
-## 数据加密安全
+  bool get isLogin => _isLogin.value;
+  UserLoginResponseEntity get profile => _profile.value;
+  bool get hasToken => token.isNotEmpty;
 
-## 编译发布
+  @override
+  void onInit() {
+    super.onInit();
+    token = StorageService.to.getString(STORAGE_USER_TOKEN_KEY);
+    var profileOffline = StorageService.to.getString(STORAGE_USER_PROFILE_KEY);
+    if (profileOffline.isNotEmpty) {
+      _profile(UserLoginResponseEntity.fromJson(jsonDecode(profileOffline)));
+    }
+  }
 
-## CICD
+  // 保存 token
+  Future<void> setToken(String value) async {
+    await StorageService.to.setString(STORAGE_USER_TOKEN_KEY, value);
+    token = value;
+  }
 
-to be continued ...
+  // 获取 profile
+  Future<void> getProfile() async {
+    if (token.isEmpty) return;
+    var result = await UserAPI.profile();
+    _profile(result);
+    _isLogin.value = true;
+    StorageService.to.setString(STORAGE_USER_PROFILE_KEY, jsonEncode(result));
+  }
+
+  // 保存 profile
+  Future<void> saveProfile(UserLoginResponseEntity profile) async {
+    _isLogin.value = true;
+    StorageService.to.setString(STORAGE_USER_PROFILE_KEY, jsonEncode(profile));
+  }
+
+  // 注销
+  Future<void> onLogout() async {
+    if (_isLogin.value) await UserAPI.logout();
+    await StorageService.to.remove(STORAGE_USER_TOKEN_KEY);
+    _isLogin.value = false;
+    token = '';
+  }
+}
+
+```
+
+
+
+end
