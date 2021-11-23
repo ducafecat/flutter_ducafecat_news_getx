@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ducafecat_news_getx/common/values/values.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../index.dart';
 
@@ -11,7 +11,7 @@ class AdWidget extends GetView<MainController> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      height: 100.h,
+      height: 100.w,
       padding: EdgeInsets.all(20.w),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -30,6 +30,7 @@ class AdWidget extends GetView<MainController> {
                 fontFamily: "Avenir",
                 fontWeight: FontWeight.w400,
                 fontSize: 18.sp,
+                height: 18.sp / 18,
               ),
             ),
           ],

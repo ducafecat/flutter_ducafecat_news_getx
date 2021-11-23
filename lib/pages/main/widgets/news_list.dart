@@ -15,7 +15,7 @@ class NewsListWidget extends GetView<MainController> {
 
   Widget _buildListItem(NewsItem item) {
     return Container(
-      height: 161.h,
+      height: 161.w,
       padding: EdgeInsets.all(20.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -29,10 +29,14 @@ class NewsListWidget extends GetView<MainController> {
               //   arguments: DetailsPageArguments(item: item),
               // );
             },
-            child: netImageCached(
-              item.thumbnail ?? "",
+            child: SizedBox(
               width: 121.w,
               height: 121.w,
+              child: netImageCached(
+                item.thumbnail ?? "",
+                width: 121.w,
+                height: 121.w,
+              ),
             ),
           ),
           // 右侧
@@ -51,7 +55,6 @@ class NewsListWidget extends GetView<MainController> {
                       fontWeight: FontWeight.normal,
                       color: AppColors.thirdElementText,
                       fontSize: 14.sp,
-                      height: 1,
                     ),
                   ),
                 ),
@@ -64,7 +67,7 @@ class NewsListWidget extends GetView<MainController> {
                     // );
                   },
                   child: Container(
-                    margin: EdgeInsets.only(top: 10.h),
+                    margin: EdgeInsets.only(top: 10.w),
                     child: Text(
                       item.title ?? "",
                       style: TextStyle(
@@ -72,7 +75,7 @@ class NewsListWidget extends GetView<MainController> {
                         fontWeight: FontWeight.w500,
                         color: AppColors.primaryText,
                         fontSize: 16.sp,
-                        height: 1,
+                        overflow: TextOverflow.clip,
                       ),
                       overflow: TextOverflow.clip,
                       maxLines: 3,
@@ -98,7 +101,6 @@ class NewsListWidget extends GetView<MainController> {
                             fontWeight: FontWeight.normal,
                             color: AppColors.secondaryElementText,
                             fontSize: 14.sp,
-                            height: 1,
                           ),
                           overflow: TextOverflow.clip,
                           maxLines: 1,
@@ -119,7 +121,6 @@ class NewsListWidget extends GetView<MainController> {
                             fontWeight: FontWeight.normal,
                             color: AppColors.thirdElementText,
                             fontSize: 14.sp,
-                            height: 1,
                           ),
                           overflow: TextOverflow.clip,
                           maxLines: 1,
@@ -131,7 +132,7 @@ class NewsListWidget extends GetView<MainController> {
                         child: Icon(
                           Icons.more_horiz,
                           color: AppColors.primaryText,
-                          size: 24.sp,
+                          size: 24,
                         ),
                         onTap: () {},
                       ),
