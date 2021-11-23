@@ -16,7 +16,8 @@ class Loading {
       ..textColor = Colors.white
       ..maskColor = Colors.black.withOpacity(0.6)
       ..userInteractions = true
-      ..dismissOnTap = false;
+      ..dismissOnTap = false
+      ..maskType = EasyLoadingMaskType.custom;
   }
 
   static void show([String? text]) {
