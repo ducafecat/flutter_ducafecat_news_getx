@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_ducafecat_news_getx/common/langs/translation_service.dart';
-import 'package:flutter_ducafecat_news_getx/common/routes/pages.dart';
+import 'package:flutter_ducafecat_news_getx/common/routers/pages.dart';
 import 'package:flutter_ducafecat_news_getx/common/store/store.dart';
 import 'package:flutter_ducafecat_news_getx/common/style/style.dart';
 import 'package:flutter_ducafecat_news_getx/common/utils/utils.dart';
