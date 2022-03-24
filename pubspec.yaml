@@ -80,7 +80,7 @@ dependencies:
   path_provider: ^2.0.1
 
   # permission 权限
-  permission_handler: ^7.1.0
+  permission_handler: ^9.2.0
 
   # 错误收集
   sentry: ^5.0.0
