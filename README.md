@@ -10,6 +10,12 @@ https://mock.apifox.cn/m1/1124717-0-default
 
 https://www.apifox.cn/apidoc/project-1124717/api-24266149
 
+- apifox 导入文件
+
+`doc/新闻客户端api.apifox.json`
+
+https://www.apifox.cn/
+
 ## 说明
 
 新闻客户端 Getx 版本 - 项目模板
