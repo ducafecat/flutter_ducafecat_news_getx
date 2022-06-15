@@ -1,0 +1,29 @@
+
+      GetPage(
+        name: RouteNames.application,
+        page: () => const ApplicationPage(),
+      ),
+      GetPage(
+        name: RouteNames.category,
+        page: () => const CategoryPage(),
+      ),
+      GetPage(
+        name: RouteNames.frameNotfound,
+        page: () => const NotfoundPage(),
+      ),
+      GetPage(
+        name: RouteNames.frameSignIn,
+        page: () => const SignInPage(),
+      ),
+      GetPage(
+        name: RouteNames.frameSignUp,
+        page: () => const SignUpPage(),
+      ),
+      GetPage(
+        name: RouteNames.frameWelcome,
+        page: () => const WelcomePage(),
+      ),
+      GetPage(
+        name: RouteNames.main,
+        page: () => const MainPage(),
+      ),

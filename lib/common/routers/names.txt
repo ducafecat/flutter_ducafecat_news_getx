@@ -1,0 +1,7 @@
+static const application = '/application';
+static const category = '/category';
+static const frameNotfound = '/frame_notfound';
+static const frameSignIn = '/frame_sign_in';
+static const frameSignUp = '/frame_sign_up';
+static const frameWelcome = '/frame_welcome';
+static const main = '/main';

@@ -1,5 +1,17 @@
 # flutter_ducafecat_news_getx
 
+## 接口 api 说明
+
+- api 基础地址
+
+https://mock.apifox.cn/m1/1124717-0-default
+
+- 文档地址
+
+https://www.apifox.cn/apidoc/project-1124717/api-24266149
+
+## 说明
+
 新闻客户端 Getx 版本 - 项目模板
 
 > 你以为看到了结果，其实一切只是刚刚开始！
